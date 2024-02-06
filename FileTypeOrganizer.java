@@ -1,4 +1,5 @@
 
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,6 +10,8 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class FileTypeOrganizer {
+
+    public static String userDirectoryLocation = System.getProperty("user.dir");
 
     public static Scanner userInput = new Scanner(System.in);
     public static void main(String[] args) throws InterruptedException {
@@ -31,12 +34,10 @@ public class FileTypeOrganizer {
         System.out.println("4 - Music");
         System.out.println("5 - Picture");
         System.out.println("6 - Videos");
-        System.out.println("0 - Custom directory");
         System.out.print("Enter your choice: ");
-        int directoryLocationChoice = validationDirectory();
+        validationDirectory();
+    
     }
-
-
 
 
     public static void folderProcess() {
@@ -48,29 +49,64 @@ public class FileTypeOrganizer {
         String mainProcessChoice = validationMainProcess();
     }
 
-    public static int validationDirectory() {
-        int directoryLocationValidated;
+
+    public static void validationDirectory() {
+        String userOperatingSystem = System.getProperty("os.name").toLowerCase();
         while(true) {
-            try {
-                String tempValue0 = userInput.nextLine();
-                directoryLocationValidated = Integer.parseInt(tempValue0);
-                if(directoryLocationValidated >= 1 && directoryLocationValidated <= 6 || directoryLocationValidated == 0) {
-                    break;
-                } else {
-                    System.out.print("Invalid choice, please try again: ");
-                    continue;
+            int directoryChoice = userInput.nextInt();
+            switch(directoryChoice) {
+            case 1: 
+                if (userOperatingSystem.contains("windows")) {
+                    String downloadsLocationWindows = userDirectoryLocation + "\\Downloads";
+                } else if (userOperatingSystem.contains("mac") || userOperatingSystem.contains("linux")) {
+                    String downloadsLocationLinuxMac = userDirectoryLocation + "/Downloads";
                 }
-            } catch(NumberFormatException e) {
-                System.out.print("Invalid choice, please try again: ");
+                break;
+            case 2:
+                if (userOperatingSystem.contains("windows")) {
+                    String downloadsLocationWindows = userDirectoryLocation + "\\Documents";
+                } else if (userOperatingSystem.contains("mac") || userOperatingSystem.contains("linux")) {
+                    String downloadsLocationLinuxMac = userDirectoryLocation + "/Documents";
+                }
+                break;
+            case 3:
+                if (userOperatingSystem.contains("windows")) {
+                    String downloadsLocationWindows = userDirectoryLocation + "\\Desktop";
+                } else if (userOperatingSystem.contains("mac") || userOperatingSystem.contains("linux")) {
+                    String downloadsLocationLinuxMac = userDirectoryLocation + "/Desktop";
+                }
+                break;
+            case 4:
+                if (userOperatingSystem.contains("windows")) {
+                    String downloadsLocationLinuxMac = userDirectoryLocation + "\\Music";
+                } else if (userOperatingSystem.contains("mac") || userOperatingSystem.contains("linux")) {
+                    String downloadsLocationLinuxMac = userDirectoryLocation + "/Music";
+                }
+                break;
+            case 5:
+                if (userOperatingSystem.contains("windows")) {
+                    String downloadsLocationLinuxMac = userDirectoryLocation + "\\Picture";
+                } else if (userOperatingSystem.contains("mac") || userOperatingSystem.contains("linux")) {
+                    String downloadsLocationLinuxMac = userDirectoryLocation + "/Picture";
+                }
+                break;
+            case 6:
+                if (userOperatingSystem.contains("windows")) {
+                    String downloadsLocationLinuxMac = userDirectoryLocation + "\\Videos";
+                } else if (userOperatingSystem.contains("mac") || userOperatingSystem.contains("linux")) {
+                    String downloadsLocationLinuxMac = userDirectoryLocation + "/Videos";
+                }
+                break;
+            default:
+                System.out.println("Invalid input");
                 continue;
             }
         }
-        return directoryLocationValidated;
     } 
 
     public static String validationMainProcess() {
         String folderProcessChoiceValidated;
-        while(true) {
+        while (true) {
             folderProcessChoiceValidated = userInput.nextLine();
         if(folderProcessChoiceValidated.equals("N") || folderProcessChoiceValidated.equals("E") || folderProcessChoiceValidated.equals("R")) {
             break;
@@ -80,7 +116,5 @@ public class FileTypeOrganizer {
         }
         }
         return folderProcessChoiceValidated;
-
-
     } 
 }
